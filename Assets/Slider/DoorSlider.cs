@@ -50,7 +50,7 @@ public class DoorSlider : MonoBehaviour
     {
        
         
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.J))
             {
                 if (IsHandleOverUIElement(imageRect))
                 {
