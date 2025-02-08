@@ -11,8 +11,8 @@ public class Trigger : MonoBehaviour
     public bool isNearFridge = false;
     public bool isNoise=false;
     public SliderController controller;
-    
-   
+
+    public GameObject trigerWasch;
     public DoorSlider doorSlider;
    
    
@@ -77,7 +77,7 @@ public class Trigger : MonoBehaviour
             {
                controller.StartCharging();
             }
-            
+            trigerWasch.SetActive(false);
         }
     }
 
@@ -128,9 +128,10 @@ public class Trigger : MonoBehaviour
         {
             controller.StopCharging();
         }
+
         
-       
     }
+
 
    
 }

@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
     public Image[] slotBackgrounds;
     public Image[] itemImages;
 
-    public bool hasItem = false;
+   
 
     private void Awake()
     {
@@ -46,7 +46,7 @@ public class Inventory : MonoBehaviour
             };
             slots.Add(newSlot);
             UpdateUI();
-            hasItem = true;
+           
 
 
         }

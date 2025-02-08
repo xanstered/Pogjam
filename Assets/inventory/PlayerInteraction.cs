@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     public static PlayerInteraction instance;
-    public float interactionDistance = 2f;
+    public float interactionDistance = 4f;
     public LayerMask interactableLayer;
     public TextMeshProUGUI interactionText;
     public IInteractable currentInteractable;
@@ -61,6 +61,11 @@ public class PlayerInteraction : MonoBehaviour
                 HideInteractionPrompt();
 
             }
+            if (Input.GetKeyDown(KeyCode.F) && currentInteractable != null && currentInteractable is Cabinet)
+            {
+                var cabinet = currentInteractable as Cabinet;
+                cabinet.Interact();
+            }
             else
             {
                 Debug.Log("Ekwipunek jest pe³ny!");
@@ -72,7 +77,11 @@ public class PlayerInteraction : MonoBehaviour
             var currentInteractableItem = currentInteractable as InteractableItem;
             currentInteractableItem.Interact();
             Inventory.instance.RemoveItem(Inventory.instance.GetItemByName(currentInteractableItem.itemName));
-          
+
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            currentInteractable.Interact();
         }
 
     }
@@ -85,6 +94,12 @@ public class PlayerInteraction : MonoBehaviour
             return; 
         }
 
+        if (currentInteractable is Cabinet)
+        {
+            interactionText.text = "[F] Open/Close Cabinet";
+            return;
+        }
+
         var currrentInteract = currentInteractable as InteractableItem;
         if (!Inventory.instance.InventoryContainsItem(currrentInteract.itemName))
         {
@@ -92,6 +107,7 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
             interactionText.text = "[F] Interact";
+        
     }
 
     private void HideInteractionPrompt()
