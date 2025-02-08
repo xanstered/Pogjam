@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 
 public class Trigger : MonoBehaviour
 {
+    public static Trigger instance;
     public bool isNearDoor = false;
     public bool isNearBoards = false;
     public bool isNearFridge = false;
     public SliderController controller;
-    public GameObject k這dka;
+   
     public DoorSlider doorSlider;
-    
+   
 
+    public TextMeshProUGUI text;
+    public Coroutine dogNoise;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        text.enabled = false;
+    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Boards")) 
@@ -24,7 +36,7 @@ public class Trigger : MonoBehaviour
             
         }
 
-        if (other.CompareTag("Door"))
+        else if (other.CompareTag("Door"))
         {
             Debug.Log("dotkn像 drzwi");
             isNearDoor = true;
@@ -33,39 +45,56 @@ public class Trigger : MonoBehaviour
            
             
         }
-      
 
-        if (other.CompareTag("T"))
+
+       else if (other.CompareTag("triggerDog"))
         {
-            Debug.Log("blisko lod闚ki");
-            isNearFridge=true;
-            
+            Debug.Log("start");
+           dogNoise= StartCoroutine(DogNoise());
+            text.enabled = true;
+            text.text = "Feed the dog,Find food";
+
+
+           
         }
     }
 
-    private void TrigerK堯dka()
+    public void StopDogNoise()
     {
-        Destroy(k這dka);
+        StopCoroutine(dogNoise);
     }
 
+   public IEnumerator DogNoise()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            Debug.Log("g這s szczekania");
+            text.enabled = false;
+
+        }
+        
+        
+      
+    
+    }
+
+   
+
+   
+    
    
    
 
     private void Update()
     {
-        if (isNearFridge)
-        {
-            
-            if (Input.GetKey(KeyCode.F))
-            {
-                Debug.Log("klika F");
-                TrigerK堯dka();
-            }
-        }
+       
         if (isNearDoor)
         {
             doorSlider.FillDoor();
 
         }
     }
+
+   
 }

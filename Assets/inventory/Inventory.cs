@@ -12,6 +12,8 @@ public class Inventory : MonoBehaviour
     public Image[] slotBackgrounds;
     public Image[] itemImages;
 
+    public bool hasItem = false;
+
     private void Awake()
     {
         instance = this;
@@ -31,7 +33,7 @@ public class Inventory : MonoBehaviour
         return slots.Count < maxSlots;
     }
 
-    public void AddItem(InteractableItem item)
+    public void AddItem(Item item)
     {
         if (CanAddItem())
         {
@@ -39,10 +41,53 @@ public class Inventory : MonoBehaviour
             {
                 itemName = item.itemName,
                 itemIcon = item.itemIcon
+
+
             };
             slots.Add(newSlot);
             UpdateUI();
+            hasItem = true;
+
+
         }
+    }
+
+    public void RemoveItem(InventorySlot item) {
+        if (!InventoryContainsItem(item.itemName)) return;
+
+        InventorySlot itemToRemove = null;
+        foreach (var currentItem in slots)
+        {
+            if(currentItem.itemName == item.itemName) {
+                itemToRemove = currentItem;
+                break;
+            }
+        }
+        if (itemToRemove != null)
+        {
+            slots.Remove(itemToRemove);
+        }
+    }
+
+    public InventorySlot GetItemByName(string itemName) {
+        foreach (var item in slots)
+        {
+            if (item.itemName == itemName)
+                return item;
+        }
+        return null;
+    }
+
+
+    public bool InventoryContainsItem(string itemName)
+   
+    {
+        foreach (var item in slots)
+        {
+            if(item.itemName == itemName)
+                return true;
+        }
+        return false;
     }
 
     private void UpdateUI()
