@@ -8,6 +8,7 @@ public class SliderController : MonoBehaviour
      public Slider NoiseSlider;
     public float fillAmount = 1f;
     public float maxAmount = 100f;
+    public bool isCharging = false;
    [SerializeField] private GameObject LosePanel;
    
 
@@ -18,16 +19,48 @@ public class SliderController : MonoBehaviour
         LosePanel.SetActive(false);
     }
 
-    public void FillSlider()
+    
+    public void Update()
     {
-        NoiseSlider.value += fillAmount;
+        if (isCharging && NoiseSlider.value < maxAmount) 
+        {
+            NoiseSlider.value += fillAmount * Time.deltaTime;
+        }
+        if (NoiseSlider.value >= maxAmount)
+        {
+            NoiseSlider.value = maxAmount;
+            LosePanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
-        if ( NoiseSlider.value > maxAmount)
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+    }
+
+    public void StartCharging()
+    {
+        isCharging=true;
+        if (NoiseSlider.value > maxAmount)
         {
             NoiseSlider.value = maxAmount;
             LosePanel.SetActive(true);
 
         }
+    }
+    public void StopCharging()
+    {
+        isCharging=false;
+    }
+
+    public void InstantCharge()
+    {
+        NoiseSlider.value += fillAmount;
+        
     }
 
 }

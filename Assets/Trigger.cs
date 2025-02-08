@@ -30,13 +30,13 @@ public class Trigger : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boards")) 
+        if (other.CompareTag("Boards"))
         {
             Debug.Log("Gracz dotkn¹³ skrzypi¹cych desek");
-            isNearBoards=true;
-            controller.FillSlider();
+            isNearBoards = true;
+            controller.InstantCharge();
 
-            
+
         }
 
         else if (other.CompareTag("Door"))
@@ -44,24 +44,45 @@ public class Trigger : MonoBehaviour
             Debug.Log("dotkn¹³ drzwi");
             isNearDoor = true;
             doorSlider.slider.SetActive(true);
-            
-           
-            
+
+
+
         }
 
 
-       else if (other.CompareTag("triggerDog"))
+        else if (other.CompareTag("triggerDog"))
         {
             Debug.Log("start");
-           dogNoise= StartCoroutine(DogNoise());
-            
+            dogNoise = StartCoroutine(DogNoise());
+
             text.enabled = true;
             text.text = "Feed the dog,Find food";
 
 
+
+        }
+
+        else if (other.CompareTag("wasch"))
+        {
+            Debug.Log("pralka");
+            isNoise = false;
            
         }
+
+        else if (other.CompareTag("waschtrigger"))
+        {
+            Debug.Log("dŸwiêk pralki");
+            isNoise = true;
+            if (isNoise)
+            {
+               controller.StartCharging();
+            }
+            
+        }
     }
+
+    
+    
 
     public void StopDogNoise()
     {
@@ -75,9 +96,9 @@ public class Trigger : MonoBehaviour
             yield return new WaitForSeconds(3);
             Debug.Log("g³os szczekania");
             text.enabled = false;
-            isNoise = true;
-
-            controller.FillSlider();
+            controller.StartCharging();
+           
+            
 
 
         }
@@ -102,7 +123,12 @@ public class Trigger : MonoBehaviour
             doorSlider.FillDoor();
 
         }
-       
+
+        if (!isNoise && Input.GetKeyDown(KeyCode.G))
+        {
+            controller.StopCharging();
+        }
+        
        
     }
 
