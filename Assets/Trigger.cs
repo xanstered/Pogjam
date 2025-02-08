@@ -9,9 +9,12 @@ public class Trigger : MonoBehaviour
     public bool isNearDoor = false;
     public bool isNearBoards = false;
     public bool isNearFridge = false;
+    public bool isNoise=false;
     public SliderController controller;
+    
    
     public DoorSlider doorSlider;
+   
    
 
     public TextMeshProUGUI text;
@@ -51,6 +54,7 @@ public class Trigger : MonoBehaviour
         {
             Debug.Log("start");
            dogNoise= StartCoroutine(DogNoise());
+            
             text.enabled = true;
             text.text = "Feed the dog,Find food";
 
@@ -68,14 +72,18 @@ public class Trigger : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             Debug.Log("g³os szczekania");
             text.enabled = false;
+            isNoise = true;
+
+            controller.FillSlider();
+
 
         }
+
+
         
-        
-      
     
     }
 
@@ -94,6 +102,8 @@ public class Trigger : MonoBehaviour
             doorSlider.FillDoor();
 
         }
+       
+       
     }
 
    
