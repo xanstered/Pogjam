@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 
 public class Trigger : MonoBehaviour
 {
+    public static Trigger instance;
     public bool isNearDoor = false;
     public bool isNearBoards = false;
     public bool isNearFridge = false;
     public SliderController controller;
-    public GameObject k³odka;
+   
     public DoorSlider doorSlider;
-    public string neededItem;
-    
+   
 
+    public TextMeshProUGUI text;
+    public Coroutine dogNoise;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        text.enabled = false;
+    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Boards")) 
@@ -34,40 +45,50 @@ public class Trigger : MonoBehaviour
            
             
         }
-      
 
-        else if (other.CompareTag("T"))
+
+       else if (other.CompareTag("triggerDog"))
         {
-            Debug.Log("blisko lodówki");
-            isNearFridge=true;
-            
+            Debug.Log("start");
+           dogNoise= StartCoroutine(DogNoise());
+            text.enabled = true;
+            text.text = "Feed the dog,Find food";
+
+
+           
         }
     }
 
-    private void TrigerK³ódka()
+    public void StopDogNoise()
     {
-        Destroy(k³odka);
+        StopCoroutine(dogNoise);
     }
 
+   public IEnumerator DogNoise()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            Debug.Log("g³os szczekania");
+            text.enabled = false;
+
+        }
+        
+        
+      
+    
+    }
+
+   
+
+   
+    
    
    
 
     private void Update()
     {
-        if (isNearFridge)
-        {
-
-            if (Inventory.instance.InventoryContainsItem(neededItem))
-            {
-
-                if (Input.GetKey(KeyCode.F))
-                {
-                    Debug.Log("klika F");
-                    TrigerK³ódka();
-                }
-            }
-            
-        }
+       
         if (isNearDoor)
         {
             doorSlider.FillDoor();

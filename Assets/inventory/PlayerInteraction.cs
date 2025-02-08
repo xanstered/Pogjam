@@ -11,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     public TextMeshProUGUI interactionText;
     public IInteractable currentInteractable;
     public Camera playerCamera;
+
    
 
     private void Awake()
@@ -58,6 +59,7 @@ public class PlayerInteraction : MonoBehaviour
                 Destroy(currentItem.gameObject);
                 currentInteractable = null;
                 HideInteractionPrompt();
+
             }
             else
             {
@@ -70,6 +72,7 @@ public class PlayerInteraction : MonoBehaviour
             var currentInteractableItem = currentInteractable as InteractableItem;
             currentInteractableItem.Interact();
             Inventory.instance.RemoveItem(Inventory.instance.GetItemByName(currentInteractableItem.itemName));
+          
         }
 
     }
