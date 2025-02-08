@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 6c2ba91599c4c1549971a9a316d9cda1
+  - enabled: 1
+    path: Assets/Scenes/rk-testy.unity
+    guid: 90af21f0163511f4dbdb1cd11cc62d84
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: c6c6e68f16b797b4db133310a482f9d2
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
