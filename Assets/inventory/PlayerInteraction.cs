@@ -77,7 +77,11 @@ public class PlayerInteraction : MonoBehaviour
             var currentInteractableItem = currentInteractable as InteractableItem;
             currentInteractableItem.Interact();
             Inventory.instance.RemoveItem(Inventory.instance.GetItemByName(currentInteractableItem.itemName));
-          
+
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            currentInteractable.Interact();
         }
 
     }

@@ -45,7 +45,7 @@ public class SliderController : MonoBehaviour
     public void StartCharging()
     {
         isCharging=true;
-        if (NoiseSlider.value > maxAmount)
+        if (NoiseSlider.value >= maxAmount)
         {
             NoiseSlider.value = maxAmount;
             LosePanel.SetActive(true);

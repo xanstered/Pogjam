@@ -2,29 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cabinet : MonoBehaviour, IInteractable
+public class Cabinet : MonoBehaviour,IInteractable
 {
     private Animator animator;
     private bool isOpen = false;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();    
-        if (animator != null)
-        {
-            Debug.LogError("brak komponentu "+ gameObject.name);
-        }
+        
+        animator = GetComponent<Animator>();
+       
         animator.SetBool("isOpen", isOpen);
     }
     public void Interact()
 
     {
-        if(animator != null)
+        if (animator != null)
         {
             isOpen = !isOpen;
             animator.SetBool("isOpen", isOpen);
         }
-       
+
     }
-    
+
 }
