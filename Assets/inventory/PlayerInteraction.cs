@@ -9,8 +9,9 @@ public class PlayerInteraction : MonoBehaviour
     public float interactionDistance = 2f;
     public LayerMask interactableLayer;
     public TextMeshProUGUI interactionText;
-    public InteractableItem currentInteractable;
+    public IInteractable currentInteractable;
     public Camera playerCamera;
+   
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
-            InteractableItem item = hit.collider.GetComponent<InteractableItem>();
+            IInteractable item = hit.collider.GetComponent<IInteractable>();
             if (item != null)
             {
                 currentInteractable = item;
@@ -48,12 +49,13 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleInteraction()
     {
-        if (Input.GetKeyDown(KeyCode.F) && currentInteractable != null)
+        if (Input.GetKeyDown(KeyCode.F) && currentInteractable != null && currentInteractable is Item)
         {
+            var currentItem = currentInteractable as Item;
             if (Inventory.instance.CanAddItem())
             {
-                Inventory.instance.AddItem(currentInteractable);
-                Destroy(currentInteractable.gameObject);
+                Inventory.instance.AddItem(currentItem);
+                Destroy(currentItem.gameObject);
                 currentInteractable = null;
                 HideInteractionPrompt();
             }
@@ -62,12 +64,31 @@ public class PlayerInteraction : MonoBehaviour
                 Debug.Log("Ekwipunek jest pe³ny!");
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F) && currentInteractable != null && currentInteractable is InteractableItem)
+        {
+            var currentInteractableItem = currentInteractable as InteractableItem;
+            currentInteractableItem.Interact();
+            Inventory.instance.RemoveItem(Inventory.instance.GetItemByName(currentInteractableItem.itemName));
+        }
+
     }
 
-    private void ShowInteractionPrompt()
+    public void ShowInteractionPrompt()
     {
-        interactionText.text = "[F] Interact";
         interactionText.gameObject.SetActive(true);
+        if (currentInteractable is Item) {
+            interactionText.text = "[F] Interact";
+            return; 
+        }
+
+        var currrentInteract = currentInteractable as InteractableItem;
+        if (!Inventory.instance.InventoryContainsItem(currrentInteract.itemName))
+        {
+            interactionText.text = "You don't have necessary item!";
+            return;
+        }
+            interactionText.text = "[F] Interact";
     }
 
     private void HideInteractionPrompt()

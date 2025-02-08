@@ -3,28 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
-public class InteractableItem : MonoBehaviour
+public class InteractableItem : MonoBehaviour, IInteractable
 {
     public string itemName;
     public Sprite itemIcon;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            PlayerInteraction.instance.currentInteractable = this;
-        }
-    }
+    public UnityEvent onInteract;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (PlayerInteraction.instance.currentInteractable == this)
-            {
-                PlayerInteraction.instance.currentInteractable = null;
-            }
-        }
+    public void Interact() {
+        onInteract.Invoke();
     }
 }
