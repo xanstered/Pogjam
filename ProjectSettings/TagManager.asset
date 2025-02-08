@@ -8,6 +8,8 @@ TagManager:
   - Door
   - T
   - triggerDog
+  - waschtrigger
+  - wasch
   layers:
   - Default
   - TransparentFX
