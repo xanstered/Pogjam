@@ -67,10 +67,7 @@ public class DoorSlider : MonoBehaviour
                 Door.value = 0;
                 increasing = false;
                 
-                if(sliderController != null)
-                {
-                    sliderController.FillSlider();
-                }
+               
                 
                 
 
