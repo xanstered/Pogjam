@@ -96,7 +96,7 @@ public class Trigger : MonoBehaviour
             yield return new WaitForSeconds(3);
             Debug.Log("g³os szczekania");
             text.enabled = false;
-            controller.StartCharging();
+            controller.InstantCharge();
            
             
 

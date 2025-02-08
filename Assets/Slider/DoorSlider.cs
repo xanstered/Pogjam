@@ -66,6 +66,7 @@ public class DoorSlider : MonoBehaviour
                 slider.gameObject.SetActive(false);
                 Door.value = 0;
                 increasing = false;
+                sliderController.InstantCharge();
                 
                
                 
@@ -75,10 +76,7 @@ public class DoorSlider : MonoBehaviour
             }
         
     }
-    public void Check()
-    {
-        
-    }
+   
 
 
 
