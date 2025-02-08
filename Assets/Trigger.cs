@@ -10,6 +10,7 @@ public class Trigger : MonoBehaviour
     public bool isNearFridge = false;
     public SliderController controller;
     public GameObject k³odka;
+    public DoorSlider doorSlider;
     
 
     public void OnTriggerEnter(Collider other)
@@ -27,7 +28,12 @@ public class Trigger : MonoBehaviour
         {
             Debug.Log("dotkn¹³ drzwi");
             isNearDoor = true;
+            doorSlider.slider.SetActive(true);
+            
+           
+            
         }
+      
 
         if (other.CompareTag("T"))
         {
@@ -41,6 +47,8 @@ public class Trigger : MonoBehaviour
     {
         Destroy(k³odka);
     }
+
+   
    
 
     private void Update()
@@ -54,6 +62,10 @@ public class Trigger : MonoBehaviour
                 TrigerK³ódka();
             }
         }
-       
+        if (isNearDoor)
+        {
+            doorSlider.FillDoor();
+
+        }
     }
 }
