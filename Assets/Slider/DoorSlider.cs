@@ -15,8 +15,9 @@ public class DoorSlider : MonoBehaviour
     public GameObject slider;
 
     public SliderController sliderController;
+    public Door door;
 
-
+    
     public bool increasing = false;
     public bool wrong = false;
     public bool check = false;
@@ -26,6 +27,7 @@ public class DoorSlider : MonoBehaviour
         Door.value = 0;
         
         slider.SetActive(false);
+      
     }
 
     public void FillDoor()
@@ -52,12 +54,15 @@ public class DoorSlider : MonoBehaviour
         
             if (Input.GetKeyDown(KeyCode.J))
             {
+
                 if (IsHandleOverUIElement(imageRect))
                 {
                     Debug.Log("image");
                 slider.gameObject.SetActive(false);
                 Door.value = 0;
                 increasing = false;
+                door.DoorOpen();
+
                
                 }
                 else if (IsHandleOverUIElement(backgroundRect))
@@ -67,12 +72,14 @@ public class DoorSlider : MonoBehaviour
                 Door.value = 0;
                 increasing = false;
                 sliderController.InstantCharge();
-                
-               
-                
-                
+                door.DoorOpen();
 
-                }
+
+
+
+
+            }
+
             }
         
     }
