@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SliderController : MonoBehaviour
 {
@@ -9,14 +10,14 @@ public class SliderController : MonoBehaviour
     public float fillAmount = 1f;
     public float maxAmount = 100f;
     public bool isCharging = false;
-   [SerializeField] private GameObject LosePanel;
+   
    
 
 
    void Start()
     {
         NoiseSlider.value = 0;
-        LosePanel.SetActive(false);
+        
     }
 
     
@@ -29,7 +30,7 @@ public class SliderController : MonoBehaviour
         if (NoiseSlider.value >= maxAmount)
         {
             NoiseSlider.value = maxAmount;
-            LosePanel.SetActive(true);
+           
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
@@ -48,7 +49,8 @@ public class SliderController : MonoBehaviour
         if (NoiseSlider.value >= maxAmount)
         {
             NoiseSlider.value = maxAmount;
-            LosePanel.SetActive(true);
+            SceneManager.LoadScene("YouLose");
+            
 
         }
     }

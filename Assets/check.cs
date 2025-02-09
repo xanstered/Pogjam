@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class check : MonoBehaviour
 {
     public GameObject chains;
-    public GameObject YouWin;
+    
 
 
-    private void Start()
-    {
-        YouWin.SetActive(false);
-    }
+  
     // Update is called once per frame
     void Update()
     {
-        if (chains == null)
+        if (!chains.activeInHierarchy) 
         {
-            YouWin.SetActive(true); 
+            SceneManager.LoadScene("YouWin");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

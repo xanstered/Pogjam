@@ -19,6 +19,7 @@ public class Trigger : MonoBehaviour
     public DoorSlider doorSlider;
    
    
+   
 
     public TextMeshProUGUI text;
     public Coroutine dogNoise;
@@ -48,12 +49,13 @@ public class Trigger : MonoBehaviour
         else if (other.CompareTag("Door"))
         {
             Debug.Log("dotkn¹³ drzwi");
-            text.enabled = false;
+            text.enabled = true;
             text.text = "Press [J] on image to open door quietly";
             isNearDoor = true;
             doorSlider.slider.SetActive(true);
             AudioManager.Instance.Play(AudioManager.SoundType.OpenDoor);
-            text.enabled = true;
+            
+            
 
 
 
@@ -76,7 +78,7 @@ public class Trigger : MonoBehaviour
         else if (other.CompareTag("waschtrigger"))
         {
             Debug.Log("dŸwiêk pralki");
-            text.enabled = false;
+            text.enabled = true;
             text.text = "[G] to turn off washine maschine";
             if (!isNoise) // Sprawdzamy czy dŸwiêk nie jest ju¿ odtwarzany
             {
@@ -84,21 +86,16 @@ public class Trigger : MonoBehaviour
                 isNoise = true;
                 controller.StartCharging();
                 trigerWasch.SetActive(false);
-                text.enabled = true;
+                
             }
         }
+        
     }
+   
 
 
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("triggerDog"))
-        {
-            isNearDog = false;
-            text.enabled = false;
-        }
-    }
+    
 
     private void UpdateDogText()
     {
@@ -142,9 +139,11 @@ public class Trigger : MonoBehaviour
 
     private void Update()
     {
+        
         if (isNearDoor)
         {
             doorSlider.FillDoor();
+            
         }
 
         if (!isNoise && Input.GetKeyDown(KeyCode.G))
