@@ -48,9 +48,12 @@ public class Trigger : MonoBehaviour
         else if (other.CompareTag("Door"))
         {
             Debug.Log("dotkn¹³ drzwi");
+            text.enabled = false;
+            text.text = "Press [J] on image to open door quietly";
             isNearDoor = true;
             doorSlider.slider.SetActive(true);
             AudioManager.Instance.Play(AudioManager.SoundType.OpenDoor);
+            text.enabled = true;
 
 
 
@@ -73,12 +76,15 @@ public class Trigger : MonoBehaviour
         else if (other.CompareTag("waschtrigger"))
         {
             Debug.Log("dŸwiêk pralki");
+            text.enabled = false;
+            text.text = "[G] to turn off washine maschine";
             if (!isNoise) // Sprawdzamy czy dŸwiêk nie jest ju¿ odtwarzany
             {
                 AudioManager.Instance.Play(AudioManager.SoundType.WashingMachine);
                 isNoise = true;
                 controller.StartCharging();
                 trigerWasch.SetActive(false);
+                text.enabled = true;
             }
         }
     }
