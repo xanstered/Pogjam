@@ -6,6 +6,7 @@ public class Cabinet : MonoBehaviour,IInteractable
 {
     private Animator animator;
     private bool isOpen = false;
+    public SliderController controller;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class Cabinet : MonoBehaviour,IInteractable
         {
             isOpen = !isOpen;
             animator.SetBool("isOpen", isOpen);
+            controller.InstantCharge();
         }
 
     }
