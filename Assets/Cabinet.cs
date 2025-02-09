@@ -23,6 +23,7 @@ public class Cabinet : MonoBehaviour,IInteractable
             isOpen = !isOpen;
             animator.SetBool("isOpen", isOpen);
             controller.InstantCharge();
+            AudioManager.Instance.Play(AudioManager.SoundType.OpenCabinet); 
         }
 
     }
